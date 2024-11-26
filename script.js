@@ -6,12 +6,15 @@ const apiHost = 'https://api.unsplash.com';
 async function fetchRandomPhotos() {
 
     // url for the api request
-    const url = '';
-
+    const url = `${apiHost}/photos/random?client_id=${apiKey}`;
 
     try {
         // sends GET request
         const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`Error fetching random photos`)
+        }
 
         // converts JSON file to JS object
         const data = await response.json();
@@ -21,3 +24,5 @@ async function fetchRandomPhotos() {
         console.error(error);
     }
 }
+
+fetchRandomPhotos()
