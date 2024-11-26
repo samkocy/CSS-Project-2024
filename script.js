@@ -2,6 +2,8 @@ const apiKey = '3OTra5WFEIv6rl-RnxnwwTIuDPJoLWuWuU81eFZSKc0';
 const apiHost = 'https://api.unsplash.com';
 const photosContainer = document.getElementById(random-photos)
 
+// full url - https://api.unsplash.com/photos/random?client_id=3OTra5WFEIv6rl-RnxnwwTIuDPJoLWuWuU81eFZSKc0
+
 
 // function to fetch data from the API
 async function fetchRandomPhotos() {
@@ -27,12 +29,13 @@ async function fetchRandomPhotos() {
 }
 
 
+// function to render JSON data
 function renderPhotos(photos) {
     photos.forEach(photo => {
         const photoElement = document.createElement('div');
 
         photoElement.innerHTML = `
-            <img src = 
+            <img src = "">
         `;
 
         photosContainer.appendChild(photoElement);
