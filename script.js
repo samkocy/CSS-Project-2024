@@ -17,7 +17,8 @@ async function fetchRandomPhotos() {
         }
 
         // converts JSON file to JS object
-        const data = await response.json();
+        const photos = await response.json();
+        renderPhotos(photos);
     }
     catch (error) {
         // if an error occurs, its caught here
@@ -25,4 +26,10 @@ async function fetchRandomPhotos() {
     }
 }
 
-fetchRandomPhotos()
+function renderPhotos(photos) {
+    photos.forEach(photo => {
+        const photoElement = document.createElement('div');
+        
+    });
+}
+fetchRandomPhotos();
