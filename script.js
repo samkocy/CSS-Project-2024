@@ -9,7 +9,7 @@ const photosContainer = document.getElementById("random-photos")
 async function fetchRandomPhotos() {
 
     // url for the api request
-    const url = `${apiHost}/photos/random?client_id=${apiKey}&count=5`;
+    const url = `${apiHost}/photos/random?client_id=${apiKey}&count=30`;
 
     try {
         // sends GET request
@@ -32,12 +32,20 @@ async function fetchRandomPhotos() {
 // function to render JSON data
 function renderPhotos(photos) {
     photos.forEach(photo => {
+
+        // creating new elements
         const photoElement = document.createElement('div');
+        const image = document.createElement('img');
 
-        photoElement.innerHTML = `
-            <img src = "${photo.urls.small}" alt="${photo.alt_description}">
-        `;
+        image.src = photo.urls.small;
+        image.alt = photo.alt_description;
 
+        // new classes
+        image.classList.add("img-fluid");
+        photoElement.classList.add("col-12", "col-sm-6", "col-md-4", "col-xl-4", "mb-3", "photo-container");
+
+        // appending elements
+        photoElement.appendChild(image);
         photosContainer.appendChild(photoElement);
     });
 }
