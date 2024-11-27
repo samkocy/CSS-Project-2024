@@ -1,6 +1,6 @@
 const apiKey = '3OTra5WFEIv6rl-RnxnwwTIuDPJoLWuWuU81eFZSKc0';
 const apiHost = 'https://api.unsplash.com';
-const photosContainer = document.getElementById(random-photos)
+const photosContainer = document.getElementById("random-photos")
 
 // full url - https://api.unsplash.com/photos/random?client_id=3OTra5WFEIv6rl-RnxnwwTIuDPJoLWuWuU81eFZSKc0
 
@@ -9,7 +9,7 @@ const photosContainer = document.getElementById(random-photos)
 async function fetchRandomPhotos() {
 
     // url for the api request
-    const url = `${apiHost}/photos/random?client_id=${apiKey}`;
+    const url = `${apiHost}/photos/random?client_id=${apiKey}&count=5`;
 
     try {
         // sends GET request
@@ -24,7 +24,7 @@ async function fetchRandomPhotos() {
         renderPhotos(photos);
     } catch (error) {
         // if an error occurs, its caught here
-        console.error(error);
+        console.error('Error occured: ', error);
     }
 }
 
@@ -35,7 +35,7 @@ function renderPhotos(photos) {
         const photoElement = document.createElement('div');
 
         photoElement.innerHTML = `
-            <img src = "">
+            <img src = "${photo.urls.small}" alt="${photo.alt_description}">
         `;
 
         photosContainer.appendChild(photoElement);
