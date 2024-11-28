@@ -42,7 +42,6 @@ async function fetchUserInfo(username) {
             throw new Error (`Error fetching user details`);
         }
 
-        // converts JSON file to JS object
         return await response.json();
     } catch (error) {
         console.error('Error occured while fetching the users: ', error)
@@ -60,7 +59,7 @@ function renderPhotos(photos) {
                 const photoElement = document.createElement('div');
                 photoElement.classList.add("col-sm-6", "col-lg-4", "col-xxl-3", "mb-5");
 
-                // inner HTML, inline styling used to create same size 
+                // inner HTML, inline styling used to create same size images
                 photoElement.innerHTML = `
                     <div class="card h-100">
                         <img src="${photo.urls.small}" alt="${photo.alt_description}" class="card-img-top img-fluid" style="object-fit: cover; height: 300px; width: 100%;">
