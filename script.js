@@ -1,7 +1,6 @@
 const apiKey = '3OTra5WFEIv6rl-RnxnwwTIuDPJoLWuWuU81eFZSKc0';
 const apiHost = 'https://api.unsplash.com';
 const photosContainer = document.getElementById("random-photos")
-
 // full url - https://api.unsplash.com/photos/random?client_id=3OTra5WFEIv6rl-RnxnwwTIuDPJoLWuWuU81eFZSKc0
 
 
@@ -35,17 +34,18 @@ function renderPhotos(photos) {
 
         // creating new elements
         const photoElement = document.createElement('div');
-        const image = document.createElement('img');
+        photoElement.classList.add("col-sm-6", "col-md-4", "col-xl-3");
 
-        image.src = photo.urls.small;
-        image.alt = photo.alt_description;
-
-        // new classes
-        image.classList.add("img-fluid");
-        photoElement.classList.add("col-12", "col-sm-6", "col-md-4", "col-xl-4", "mb-3", "photo-container");
-
+        photoElement.innerHTML = `
+            <div class="card h-100">
+                <img src="${photo.urls.small}" class="card-img-top img-fluid" alt="${photo.alt_description}">
+            <div class="card-body">
+                <h5 class="card-title">${photo.user.name}</h5>
+                <p class="card-text">Likes: ${photo.likes}</p>
+            </div>
+        `;
+        
         // appending elements
-        photoElement.appendChild(image);
         photosContainer.appendChild(photoElement);
     });
 }
