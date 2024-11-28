@@ -4,10 +4,10 @@ const photosContainer = document.getElementById("random-photos")
 // full url - https://api.unsplash.com/photos/random?client_id=3OTra5WFEIv6rl-RnxnwwTIuDPJoLWuWuU81eFZSKc0
 
 
-// function to fetch data from the API
+// function to fetch photos from the API
 async function fetchRandomPhotos() {
 
-    // url for the api request
+    // url for the api photos request
     const url = `${apiHost}/photos/random?client_id=${apiKey}&count=30`;
 
     try {
@@ -23,7 +23,30 @@ async function fetchRandomPhotos() {
         renderPhotos(photos);
     } catch (error) {
         // if an error occurs, its caught here
-        console.error('Error occured: ', error);
+        console.error('Error occured while fetching the photos: ', error);
+    }
+}
+
+
+// function to fetch user details from the API
+async function fetchUserInfo() {
+
+    // url for the api user info request
+    const url = `${apiHost}/users/${username}?client_id=${apiKey}`;
+
+    try {
+        // sends GET request
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error (`Error fetching user details`);
+        }
+
+        // converts JSON file to JS object
+        const users = await response.json();
+        renderPhotos(photos);
+    } catch (error) {
+        console.error('Error occured while fetching the users: ', error)
     }
 }
 
@@ -34,11 +57,12 @@ function renderPhotos(photos) {
 
         // creating new elements
         const photoElement = document.createElement('div');
-        photoElement.classList.add("col-sm-6", "col-md-4", "col-xl-3");
+        photoElement.classList.add("col-sm-6", "col-lg-4", "col-xxl-3", "mb-5");
 
+        // inner HTML, inline styling used to create same size images 
         photoElement.innerHTML = `
             <div class="card h-100">
-                <img src="${photo.urls.small}" class="card-img-top img-fluid" alt="${photo.alt_description}">
+                <img src="${photo.urls.small}" alt="${photo.alt_description}" class="card-img-top img-fluid" style="object-fit: cover; height: 300px; width: 100%;">
             <div class="card-body">
                 <h5 class="card-title">${photo.user.name}</h5>
                 <p class="card-text">Likes: ${photo.likes}</p>
