@@ -66,7 +66,7 @@ function renderPhotos(photos) {
                     <div class="card-body">
                         <p class="card-text">Likes: ${photo.likes}</p>
                         <p class="card-text">Photographer: ${userInfo.name}</p
-                        <p class="card-text">Photographer: ${userInfo.followers_count}</p
+                        <p class="card-text">Followers Count: ${userInfo.followers_count}</p
                     </div>
                 `;
 
