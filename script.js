@@ -5,11 +5,29 @@ const selectedCategory = document.getElementById('category');
 const showPhotosButton = document.getElementById('photosButton');
 // full url - https://api.unsplash.com/photos/random?client_id=o5vx23ExgOHEE1BN0sIrEiQ-6Gdfn-zTmUbzDZsKI2c
 
+
+// function to filter photos by category
+function selectedPhotos() {
+    const selectedCategories = [];
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+    for (let i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked) {
+            selectedCategories.push(checkboxes[i].value);
+        }
+    }
+
+    return selectedCategories;
+}
+
+
 // function to fetch photos from the API
-async function fetchRandomPhotos(category) {
+async function fetchRandomPhotos(categories) {
+
+    const categoryQuery = categories.join(',');
 
     // url for the api photos request
-    const url = `${apiHost}/photos/random?query=${category}&client_id=${apiKey}&count=4`;
+    const url = `${apiHost}/photos/random?query=${categoryQuery}&client_id=${apiKey}&count=4`;
 
     try {
         // sends GET request
@@ -53,6 +71,8 @@ async function fetchUserInfo(username) {
 
 // function to render JSON data
 function renderPhotos(photos) {
+    photosContainer.innerHTML = '';
+
     photos.forEach(photo => {
         fetchUserInfo(photo.user.username).then(userInfo => {
             if (userInfo) {
