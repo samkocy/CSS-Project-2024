@@ -1,4 +1,4 @@
-const apiKey = 'o5vx23ExgOHEE1BN0sIrEiQ-6Gdfn-zTmUbzDZsKI2c';
+const apiKey = 'UWpGsSnrfPqCD9YYsimK-EbuAnaylawGJdgua973kbw';
 const apiHost = 'https://api.unsplash.com';
 const photosContainer = document.getElementById('random-photos');
 const showPhotosButton = document.getElementById('photosButton');
@@ -7,8 +7,7 @@ const showPhotosButton = document.getElementById('photosButton');
 
 // function to filter photos by category
 function selectedCategory() {
-    const selectedRadio = [];
-    const radio = document.querySelectorAll('input[name="category"]:checked');
+    const selectedRadio = document.querySelector('input[name="category"]:checked');
     return selectedRadio ? selectedRadio.value : null;
 }
 
@@ -96,9 +95,11 @@ showPhotosButton.addEventListener('click', async () => {
     const category = selectedCategory();
     const photoCount = parseInt(document.getElementById('photoCount').value)
 
-    if (!category || isNaN)
-
+    if (!category || isNaN(photoCount) || photoCount < 1 || photoCount > 30) {
+        alert('Please select category and enter a number between 1 and 30');
+        return;
+    }
 
     const photos = await fetchRandomPhotos(category, photoCount);
-    await renderPhotos(photos);
+    renderPhotos(photos);
 });
