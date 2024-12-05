@@ -11,17 +11,8 @@ function selectedCategory() {
     return selectedRadio ? selectedRadio.value : null;
 }
 
-
-// function to fetch photos from the API
-async function fetchRandomPhotos(category, count) {
-    // checks if there is category selected a number of photos entered
-    if (!category || !count) {
-        return [];
-    }
-
-    // url for the api photos request
-    const url = `${apiHost}/photos/random?query=${category}&client_id=${apiKey}&count=${count}`;
-
+// helper function to fecth data from an API 
+async function fetchData(url) {
     try {
         // sends GET request
         const response = await fetch(url);
@@ -38,33 +29,31 @@ async function fetchRandomPhotos(category, count) {
     }
 }
 
+// function to fetch photos
+async function fetchRandomPhotos(category, count) {
+    // checks if there is category selected a number of photos entered
+    if (!category || !count) {
+        return [];
+    }
 
-// function to fetch user details from the API
+    // url for the api photos request
+    const url = `${apiHost}/photos/random?query=${category}&client_id=${apiKey}&count=${count}`;
+    return await fetchData(url);
+}
+
+
+// function to fetch user details
 async function fetchUserInfo(username) {
 
     // url for the api user info request
     const url = `${apiHost}/users/${username}?client_id=${apiKey}`;
-
-    try {
-        // sends GET request
-        const response = await fetch(url);
-
-        if (!response.ok) {
-            throw new Error (`Error fetching user details`);
-        }
-
-        return await response.json();
-    } catch (error) {
-        // if an error occurs, its caught here
-        console.error('Error occured while fetching the users: ', error)
-        return null;
-    }
+    return await fetchData(url);
 }
 
 
 // function to render JSON data
 function renderPhotos(photos) {
-    photosContainer.innerHTML = '';
+    photosContainer.innerHTML = ''; // clears previous info
 
     photos.forEach(photo => {
         fetchUserInfo(photo.user.username).then(userInfo => {
@@ -90,6 +79,7 @@ function renderPhotos(photos) {
         });
     });
 }
+
 
 showPhotosButton.addEventListener('click', async () => {
     const category = selectedCategory();
