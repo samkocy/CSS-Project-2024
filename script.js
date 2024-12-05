@@ -11,8 +11,17 @@ function selectedCategory() {
     return selectedRadio ? selectedRadio.value : null;
 }
 
-// helper function to fecth data from an API 
-async function fetchData(url) {
+
+// function to fetch photos from the API
+async function fetchRandomPhotos(category, count) {
+    // checks if there is category selected a number of photos entered
+    if (!category || !count) {
+        return [];
+    }
+
+    // url for the api photos request
+    const url = `${apiHost}/photos/random?query=${category}&client_id=${apiKey}&count=${count}`;
+
     try {
         // sends GET request
         const response = await fetch(url);
@@ -29,31 +38,33 @@ async function fetchData(url) {
     }
 }
 
-// function to fetch photos
-async function fetchRandomPhotos(category, count) {
-    // checks if there is category selected a number of photos entered
-    if (!category || !count) {
-        return [];
-    }
 
-    // url for the api photos request
-    const url = `${apiHost}/photos/random?query=${category}&client_id=${apiKey}&count=${count}`;
-    return await fetchData(url);
-}
-
-
-// function to fetch user details
+// function to fetch user details from the API
 async function fetchUserInfo(username) {
 
     // url for the api user info request
     const url = `${apiHost}/users/${username}?client_id=${apiKey}`;
-    return await fetchData(url);
+
+    try {
+        // sends GET request
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error (`Error fetching user details`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        // if an error occurs, its caught here
+        console.error('Error occured while fetching the users: ', error)
+        return null;
+    }
 }
 
 
 // function to render JSON data
 function renderPhotos(photos) {
-    photosContainer.innerHTML = ''; // clears previous info
+    photosContainer.innerHTML = ''; // clears photos
 
     photos.forEach(photo => {
         fetchUserInfo(photo.user.username).then(userInfo => {
