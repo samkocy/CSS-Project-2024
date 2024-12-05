@@ -1,29 +1,25 @@
 const apiKey = 'o5vx23ExgOHEE1BN0sIrEiQ-6Gdfn-zTmUbzDZsKI2c';
 const apiHost = 'https://api.unsplash.com';
 const photosContainer = document.getElementById('random-photos');
-const selectedCategory = document.getElementById('category');
 const showPhotosButton = document.getElementById('photosButton');
 // full url - https://api.unsplash.com/photos/random?client_id=o5vx23ExgOHEE1BN0sIrEiQ-6Gdfn-zTmUbzDZsKI2c
 
 
 // function to filter photos by category
-function selectedPhotos() {
-    const selectedCategories = [];
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-
-    for (let i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-            selectedCategories.push(checkboxes[i].value);
-        }
-    }
-
-    return selectedCategories;
+function selectedCategory() {
+    const selectedRadio = [];
+    const radio = document.querySelectorAll('input[name="category"]:checked');
+    return selectedRadio ? selectedRadio.value : null;
 }
 
 
 // function to fetch photos from the API
-async function fetchRandomPhotos(categories) {
-
+async function fetchRandomPhotos(category, count) {
+    // checks length of the category
+    if (!category || !count) {
+        return [];
+    }
+    
     const categoryQuery = categories.join(',');
 
     // url for the api photos request
