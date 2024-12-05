@@ -1,14 +1,15 @@
 const apiKey = 'o5vx23ExgOHEE1BN0sIrEiQ-6Gdfn-zTmUbzDZsKI2c';
 const apiHost = 'https://api.unsplash.com';
-const photosContainer = document.getElementById("random-photos")
+const photosContainer = document.getElementById('random-photos');
+const selectedCategory = document.getElementById('category');
 const showPhotosButton = document.getElementById('photosButton');
 // full url - https://api.unsplash.com/photos/random?client_id=o5vx23ExgOHEE1BN0sIrEiQ-6Gdfn-zTmUbzDZsKI2c
 
 // function to fetch photos from the API
-async function fetchRandomPhotos() {
+async function fetchRandomPhotos(category) {
 
     // url for the api photos request
-    const url = `${apiHost}/photos/random?query=${category}client_id=${apiKey}&count=30`;
+    const url = `${apiHost}/photos/random?query=${category}&client_id=${apiKey}&count=4`;
 
     try {
         // sends GET request
@@ -17,13 +18,12 @@ async function fetchRandomPhotos() {
         if (!response.ok) {
             throw new Error(`Error fetching random photos`);
         }
-
-        // converts JSON file to JS object
-        const photos = await response.json();
-        renderPhotos(photos);
+        
+        return await response.json();
     } catch (error) {
         // if an error occurs, its caught here
         console.error('Error occured while fetching the photos: ', error);
+        return null;
     }
 }
 
@@ -44,6 +44,7 @@ async function fetchUserInfo(username) {
 
         return await response.json();
     } catch (error) {
+        // if an error occurs, its caught here
         console.error('Error occured while fetching the users: ', error)
         return null;
     }
@@ -65,8 +66,8 @@ function renderPhotos(photos) {
                         <img src="${photo.urls.small}" alt="${photo.alt_description}" class="card-img-top img-fluid" style="object-fit: cover; height: 300px; width: 100%;">
                     <div class="card-body">
                         <p class="card-text">Likes: ${photo.likes}</p>
-                        <p class="card-text">Photographer: ${userInfo.name}</p
-                        <p class="card-text">Followers Count: ${userInfo.followers_count}</p
+                        <p class="card-text">Photographer: ${userInfo.name}</p>
+                        <p class="card-text">Followers Count: ${userInfo.followers_count}</p>
                     </div>
                 `;
 
@@ -78,7 +79,7 @@ function renderPhotos(photos) {
 }
 
 showPhotosButton.addEventListener('click', async () => {
-
-})
-
-fetchRandomPhotos();
+    const category = selectedCategory.value;
+    const photos = await fetchRandomPhotos(category);
+    await renderPhotos(photos);
+});
