@@ -15,15 +15,13 @@ function selectedCategory() {
 
 // function to fetch photos from the API
 async function fetchRandomPhotos(category, count) {
-    // checks length of the category
+    // checks if there is category selected a number of photos entered
     if (!category || !count) {
         return [];
     }
-    
-    const categoryQuery = categories.join(',');
 
     // url for the api photos request
-    const url = `${apiHost}/photos/random?query=${categoryQuery}&client_id=${apiKey}&count=4`;
+    const url = `${apiHost}/photos/random?query=${category}&client_id=${apiKey}&count=${count}`;
 
     try {
         // sends GET request
@@ -95,7 +93,12 @@ function renderPhotos(photos) {
 }
 
 showPhotosButton.addEventListener('click', async () => {
-    const category = selectedCategory.value;
-    const photos = await fetchRandomPhotos(category);
+    const category = selectedCategory();
+    const photoCount = parseInt(document.getElementById('photoCount').value)
+
+    if (!category || isNaN)
+
+
+    const photos = await fetchRandomPhotos(category, photoCount);
     await renderPhotos(photos);
 });
