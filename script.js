@@ -1,13 +1,14 @@
 const apiKey = 'o5vx23ExgOHEE1BN0sIrEiQ-6Gdfn-zTmUbzDZsKI2c';
 const apiHost = 'https://api.unsplash.com';
 const photosContainer = document.getElementById("random-photos")
+const showPhotosButton = document.getElementById('photosButton');
 // full url - https://api.unsplash.com/photos/random?client_id=o5vx23ExgOHEE1BN0sIrEiQ-6Gdfn-zTmUbzDZsKI2c
 
 // function to fetch photos from the API
 async function fetchRandomPhotos() {
 
     // url for the api photos request
-    const url = `${apiHost}/photos/random?client_id=${apiKey}&count=30`;
+    const url = `${apiHost}/photos/random?query=${category}client_id=${apiKey}&count=30`;
 
     try {
         // sends GET request
@@ -75,4 +76,9 @@ function renderPhotos(photos) {
         });
     });
 }
+
+showPhotosButton.addEventListener('click', async () => {
+
+})
+
 fetchRandomPhotos();
