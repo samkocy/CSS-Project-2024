@@ -7,8 +7,8 @@ const showPhotosButton = document.getElementById('photosButton');
 
 // function to filter photos by category
 function selectedCategory() {
-    const selectedRadio = document.querySelector('input[name="category"]:checked');
-    return selectedRadio ? selectedRadio.value : null;
+    const selectedRadio = document.querySelector('input[name="category"]:checked'); // checks which radio button is selected
+    return selectedRadio ? selectedRadio.value : null; // shorten if else statement, if button is selected, returns it value, if not, returns null
 }
 
 
@@ -16,7 +16,7 @@ function selectedCategory() {
 async function fetchRandomPhotos(category, count) {
     // checks if there is category selected a number of photos entered
     if (!category || !count) {
-        return [];
+        return null; // if sometnginf
     }
 
     // url for the api photos request
