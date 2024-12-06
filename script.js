@@ -1,4 +1,4 @@
-const apiKey = 'o5vx23ExgOHEE1BN0sIrEiQ-6Gdfn-zTmUbzDZsKI2c';
+const apiKey = 'o5vx23ExgOHEE1BN0sIrEiQ-6Gdfn-zTmUbzDZsKI2c'; // o5vx23ExgOHEE1BN0sIrEiQ-6Gdfn-zTmUbzDZsKI2c
 const apiHost = 'https://api.unsplash.com';
 const photosContainer = document.getElementById('random-photos');
 const showPhotosButton = document.getElementById('photosButton');
