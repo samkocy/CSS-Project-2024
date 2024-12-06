@@ -16,7 +16,7 @@ function selectedCategory() {
 async function fetchRandomPhotos(category, count) {
     // checks if there is category selected a number of photos entered
     if (!category || !count) {
-        return null; // if sometnginf
+        return null; // if it's empty, function will not continue
     }
 
     // url for the api photos request
@@ -26,6 +26,7 @@ async function fetchRandomPhotos(category, count) {
         // sends GET request
         const response = await fetch(url);
 
+        // if there is a problem with response from the server, error message will be displayed
         if (!response.ok) {
             throw new Error(`Error fetching random photos`);
         }
@@ -49,6 +50,7 @@ async function fetchUserInfo(username) {
         // sends GET request
         const response = await fetch(url);
 
+        // if there is a problem with response from the server, error message will be displayed
         if (!response.ok) {
             throw new Error (`Error fetching user details`);
         }
@@ -91,13 +93,15 @@ function renderPhotos(photos) {
     });
 }
 
-
+// adding event listener, 
 showPhotosButton.addEventListener('click', async () => {
+
+    // getting user input
     const category = selectedCategory();
-    const photoCount = parseInt(document.getElementById('photoCount').value)
+    const photoCount = parseInt(document.getElementById('photoCount').value); // converting photo count into integer
 
     if (!category || isNaN(photoCount) || photoCount < 1 || photoCount > 30) {
-        alert('Please select category and enter a number between 1 and 30');
+        alert('Please select category and enter a number between 1 and 30'); // if something is empty or photo count is not 1-30, error message will be displayed
         return;
     }
 
